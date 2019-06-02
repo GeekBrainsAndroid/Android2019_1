@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hello Activity</string>
+    <string name="hello_geekbrains">Hello GeekBrains!</string>
+</resources>
