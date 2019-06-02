@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView greeting = findViewById(R.id.greeting);
-        greeting.setText(R.string.hello_geekbrains);
+        String hello = getResources().getString(R.string.hello_geekbrains);
+        hello += "!!";
+        greeting.setText(hello);
     }
 }
