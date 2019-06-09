@@ -23,7 +23,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button button3 = findViewById(R.id.button3);
         button3.setOnClickListener(this);
+
+        Button button4 = findViewById(R.id.button4);
+        button4.setOnClickListener(button4Listener);
+
+        Button button5 = findViewById(R.id.button5);
+        button5.setOnClickListener(new Button5Listener());
     }
+
+    private View.OnClickListener button4Listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this, "button4 ClickListener event!", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onClick(View v) {
