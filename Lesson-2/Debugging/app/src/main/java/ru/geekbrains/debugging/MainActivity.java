@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     textView.setText("Равно!");
                 }
                 else{
-                    textView.setText("Равно!");
+                    textView.setText("Не равно!");
                 }
 
             }
