@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText("Не равно!");
                     }
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+                    textView.setText("Введите число!");
                 }
             }
         });
