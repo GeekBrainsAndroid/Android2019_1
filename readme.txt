@@ -6,3 +6,6 @@
 	Lesson-2/DigitalKeyboard - "Цифровая клавиатура"
 	Lesson-2/ClickListener - Обработка нажатий
 	Lesson-2/Debugging - Отладка приложения
+Урок 3:
+	Lesson-3/LifeCycle - Демонстрация жизненного цикла активити
+	
