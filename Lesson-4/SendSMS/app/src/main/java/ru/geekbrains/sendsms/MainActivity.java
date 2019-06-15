@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String smsBody = text.getText().toString();
                 Intent smsSend = new Intent(Intent.ACTION_SENDTO);
-                smsSend.setData(Uri.parse("smsto:"));
+                smsSend.setData(Uri.parse("smsto:2222"));
                 smsSend.putExtra("sms_body", smsBody);
                 startActivity(smsSend);
             }
