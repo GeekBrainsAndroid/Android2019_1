@@ -1,6 +1,7 @@
 package ru.geekbrains.startintent;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +26,12 @@ public class MainActivity extends AppCompatActivity {
                 String uriStr = String.format("example://intent/%s", text.getText().toString());
                 Uri uri = Uri.parse(uriStr);
                 Intent runEchoIntent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(runEchoIntent);
+                ActivityInfo activityInfo =
+                        runEchoIntent.resolveActivityInfo(getPackageManager(),
+                                runEchoIntent.getFlags());
+                if (activityInfo != null) {
+                    startActivity(runEchoIntent);
+                }
             }
         });
     }
