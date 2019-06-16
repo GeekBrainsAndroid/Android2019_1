@@ -14,3 +14,5 @@
 	Lesson-4/CallBrowser - "Вызов браузера"
 	Lesson-4/SendSMS - "Отправка СМС"
 	Lesson-4/IntentProcess - Обработка интента
+Урок 5:
+	Lesson-6/CityHeraldry - "Гербы городов", демонстрация возможностей фрагментов
