@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder> {
 
     private String[] dataSource;
+    private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
 
     // Передаем в конструктор источник данных
     // В нашем случае это массив, но может быть и запросом к БД
@@ -46,6 +47,16 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
         return dataSource.length;
     }
 
+    // Интерфейс для обработки нажатий как в ListView
+    public interface OnItemClickListener {
+        void onItemClick(View view , int position);
+    }
+
+    // Сеттер слушателя нажатий
+    public void SetOnItemClickListener(OnItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+
     // Этот класс хранит связь между данными и элементами View
     // Сложные данные могут потребовать несколько View на
     // один пункт списка
@@ -55,6 +66,16 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = (TextView) itemView;
+
+            // Обработчик нажатий на этом ViewHolder
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(v, getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public TextView getTextView() {

@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,5 +33,13 @@ public class MainActivity extends AppCompatActivity {
         // Установим адаптер
         SocnetAdapter adapter = new SocnetAdapter(data);
         recyclerView.setAdapter(adapter);
+
+        // Установим слушателя
+        adapter.SetOnItemClickListener(new SocnetAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(MainActivity.this, String.format("%s - %d", ((TextView)view).getText(), position), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
