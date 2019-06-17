@@ -13,12 +13,12 @@ import android.widget.TextView;
 // Адаптер
 public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder> {
 
-    private SocSource dataSource;
+    private SocialDataSource  dataSource;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
 
     // Передаем в конструктор источник данных
     // В нашем случае это массив, но может быть и запросом к БД
-    public SocnetAdapter(SocSource dataSource){
+    public SocnetAdapter(SocialDataSource  dataSource){
         this.dataSource = dataSource;
     }
 
