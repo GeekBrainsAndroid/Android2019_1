@@ -2,6 +2,7 @@ package ru.geekbrains.socialnetwork;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -31,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
         // Будем работать со встроенным менеджером
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        // Добавим разделитель карточек
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,  LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getDrawable(R.drawable.separator));
+        recyclerView.addItemDecoration(itemDecoration);
 
         // Установим адаптер
         SocnetAdapter adapter = new SocnetAdapter(sourceData);
