@@ -2,20 +2,23 @@ package ru.geekbrains.socialnetwork;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 // Адаптер
 public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder> {
 
-    private String[] dataSource;
+    private SocSource dataSource;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
 
     // Передаем в конструктор источник данных
     // В нашем случае это массив, но может быть и запросом к БД
-    public SocnetAdapter(String[] dataSource){
+    public SocnetAdapter(SocSource dataSource){
         this.dataSource = dataSource;
     }
 
@@ -29,7 +32,12 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item, viewGroup, false);
         // Здесь можно установить всякие параметры
-        return new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v);
+        if (itemClickListener != null) {
+            vh.setOnClickListener(itemClickListener);
+        }
+        Log.d("SocnetAdapter", "onCreateViewHolder");
+        return vh;
     }
 
     // Заменить данные в пользовательском интерфейсе
@@ -38,13 +46,15 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SocnetAdapter.ViewHolder viewHolder, int i) {
         // Получить элемент из источника данных (БД, интернет...)
         // Вынести на экран используя ViewHolder
-        viewHolder.getTextView().setText(dataSource[i]);
+        Soc soc = dataSource.getSoc(i);
+        viewHolder.setData(soc.getDescription(), soc.getPicture(), soc.getLike());
+        Log.d("SocnetAdapter", "onBindViewHolder");
     }
 
     // Вернуть размер данных, вызывается менеджером
     @Override
     public int getItemCount() {
-        return dataSource.length;
+        return dataSource.size();
     }
 
     // Интерфейс для обработки нажатий как в ListView
@@ -61,25 +71,44 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
     // Сложные данные могут потребовать несколько View на
     // один пункт списка
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        private TextView description;
+        private ImageView image;
+        private CheckBox like;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = (TextView) itemView;
+            description = itemView.findViewById(R.id.description);
+            image = itemView.findViewById(R.id.imageView);
+            like = itemView.findViewById(R.id.like);
+        }
 
-            // Обработчик нажатий на этом ViewHolder
-            textView.setOnClickListener(new View.OnClickListener() {
+        public void setOnClickListener(final OnItemClickListener listener){
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (itemClickListener != null) {
-                        itemClickListener.onItemClick(v, getAdapterPosition());
-                    }
+                    // Получаем позицию адаптера
+                    int adapterPosition = getAdapterPosition();
+                    // Проверяем ее на корректность
+                    if (adapterPosition == RecyclerView.NO_POSITION) return;
+                    listener.onItemClick(v, adapterPosition);
                 }
             });
         }
 
-        public TextView getTextView() {
-            return textView;
+        public void setData(String description, int picture, boolean like){
+            getLike().setChecked(like);
+            getImage().setImageResource(picture);
+            getDescription().setText(description);
+        }
+
+        public CheckBox getLike() {
+            return like;
+        }
+        public TextView getDescription() {
+            return description;
+        }
+        public ImageView getImage() {
+            return image;
         }
     }
 }
