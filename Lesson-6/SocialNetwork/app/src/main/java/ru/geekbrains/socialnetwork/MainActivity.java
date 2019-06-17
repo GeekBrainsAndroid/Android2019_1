@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,14 +18,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initDataSource();
+    }
+
+    // Выделяем инициализацию источника данных
+    private void initDataSource() {
         // строим источник данных
         SocialDataSource sourceData = new SocSourceBuilder()
                 .setResources(getResources())
                 .build();
-        initRecyclerView(sourceData);
+        // Декорируем источник данных, теперь он будет изменяем.
+        final SocialChangableSource sourceChangableData = new SocChangableSource(sourceData);
+        final SocnetAdapter adapter = initRecyclerView(sourceChangableData);
+
+        Button add = findViewById(R.id.buttonAdd);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sourceChangableData.add();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        Button delete = findViewById(R.id.buttonDel);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sourceChangableData.delete();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
-    private void initRecyclerView(SocialDataSource sourceData){
+    private SocnetAdapter initRecyclerView(SocialDataSource sourceData) {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         // Эта установка служит для повышения производительности системы
@@ -35,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Добавим разделитель карточек
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,  LinearLayoutManager.VERTICAL);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         itemDecoration.setDrawable(getDrawable(R.drawable.separator));
         recyclerView.addItemDecoration(itemDecoration);
 
@@ -50,5 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
             }
         });
+        return adapter;
     }
 }
