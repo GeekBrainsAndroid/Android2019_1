@@ -15,4 +15,6 @@
 	Lesson-4/SendSMS - "Отправка СМС"
 	Lesson-4/IntentProcess - Обработка интента
 Урок 5:
-	Lesson-6/CityHeraldry - "Гербы городов", демонстрация возможностей фрагментов
+	Lesson-5/CityHeraldry - "Гербы городов", демонстрация возможностей фрагментов
+	Lesson-5/FragmentManager - Исследование менеджера фрагментов
+	Lesson-5/FragmentObserver - Передача данных между фрагментами
