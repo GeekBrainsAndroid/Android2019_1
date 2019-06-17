@@ -19,3 +19,6 @@
 	Lesson-5/FragmentManager - Исследование менеджера фрагментов
 	Lesson-5/FragmentObserver - Передача данных между фрагментами
 	Lesson-5/Timer - Как избежать пересоздания фрагмента
+Урок 6:
+	Lesson-6/CityHeraldryList - Организация подобия списка через макетом
+	Lesson-6/SocialNetwork - RecyclerView, Организация списка
