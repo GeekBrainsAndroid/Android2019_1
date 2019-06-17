@@ -2,6 +2,7 @@ package ru.geekbrains.socialnetwork;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sourceChangableData.add();
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemInserted(sourceChangableData.size());
             }
         });
         Button delete = findViewById(R.id.buttonDel);
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sourceChangableData.delete();
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRemoved(sourceChangableData.size());
             }
         });
     }
@@ -63,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         itemDecoration.setDrawable(getDrawable(R.drawable.separator));
         recyclerView.addItemDecoration(itemDecoration);
+
+        // Установим анимацию. А чтобы было хорошо заметно, сделаем анимацию долгой
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(500);
+        animator.setRemoveDuration(500);
+        recyclerView.setItemAnimator(animator);
 
         // Установим адаптер
         SocnetAdapter adapter = new SocnetAdapter(sourceData);
