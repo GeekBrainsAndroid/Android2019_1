@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.geekbrains.login.MainActivity"
-    android:theme="@style/MyBigText">
+    tools:context="ru.geekbrains.login.MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginName"
@@ -24,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/loginName"
-            android:inputType="textPersonName"
-            style="@style/MyTinyText"/>
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
