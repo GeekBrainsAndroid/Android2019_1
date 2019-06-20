@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
+                    MyBottonSheetDialog bottonSheetDialog = new MyBottonSheetDialog();
+                    bottonSheetDialog.show(getSupportFragmentManager(), "Диалог");
                     return true;
             }
             return false;
