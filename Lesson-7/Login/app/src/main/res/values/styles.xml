@@ -5,4 +5,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="MyTinyText">
+        <item name="android:textColor">@color/design_default_color_primary</item>
+        <item name="android:textSize">5sp</item>
+    </style>
+    <style name="MyBigText">
+        <item name="android:textColor">@color/design_default_color_primary_dark</item>
+        <item name="android:textSize">42sp</item>
+    </style>
 </resources>
