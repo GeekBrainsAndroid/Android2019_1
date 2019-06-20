@@ -1,8 +1,8 @@
 package ru.geekbrains.login;
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import java.util.regex.Pattern;
