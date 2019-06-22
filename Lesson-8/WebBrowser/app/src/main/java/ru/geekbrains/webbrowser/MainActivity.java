@@ -1,6 +1,7 @@
 package ru.geekbrains.webbrowser;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             try {
                 final URL uri = new URL(url.getText().toString());
+                final Handler handler = new Handler(); // Запоминаем основной поток
                 new Thread(new Runnable() {
                     public void run() {
                         HttpsURLConnection urlConnection = null;
@@ -47,9 +49,15 @@ public class MainActivity extends AppCompatActivity {
                             urlConnection.setRequestMethod("GET"); // установка метода получения данных -GET
                             urlConnection.setReadTimeout(10000); // установка таймаута - 10 000 миллисекунд
                             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream())); // читаем  данные в поток
-                            String result = getLines(in);
-                            webView.loadData(result, "text/html; charset=utf-8", "utf-8");
-                        } catch (Exception e) {
+                            final String result = getLines(in);
+                            // Возвращаемся к основному потоку
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    webView.loadData(result, "text/html; charset=utf-8", "utf-8");
+                                }
+                            });
+                            } catch (Exception e) {
                             Log.e(TAG, "Fail connection", e);
                             e.printStackTrace();
                         } finally {
