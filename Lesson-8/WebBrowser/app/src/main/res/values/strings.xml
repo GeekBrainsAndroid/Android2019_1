@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Web Browser</string>
+    <string name="go">Вперед</string>
+    <string name="ok">ок</string>
+    <string name="homepage">https:/geekbrains.ru</string>
+</resources>
