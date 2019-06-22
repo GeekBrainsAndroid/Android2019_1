@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.stream.Collectors;
 
@@ -36,22 +37,31 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            HttpsURLConnection urlConnection = null;
             try {
-                URL uri = new URL(url.getText().toString());
-                urlConnection = (HttpsURLConnection) uri.openConnection();
-                urlConnection.setRequestMethod("GET"); // установка метода получения данных -GET
-                urlConnection.setReadTimeout(10000); // установка таймаута - 10 000 миллисекунд
-                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream())); // читаем  данные в поток
-                String result = getLines(in);
-                webView.loadData(result, "text/html; charset=utf-8", "utf-8");
-            } catch (Exception e) {
-                Log.e(TAG, "Fail connection", e);
+                final URL uri = new URL(url.getText().toString());
+                new Thread(new Runnable() {
+                    public void run() {
+                        HttpsURLConnection urlConnection = null;
+                        try {
+                            urlConnection = (HttpsURLConnection) uri.openConnection();
+                            urlConnection.setRequestMethod("GET"); // установка метода получения данных -GET
+                            urlConnection.setReadTimeout(10000); // установка таймаута - 10 000 миллисекунд
+                            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream())); // читаем  данные в поток
+                            String result = getLines(in);
+                            webView.loadData(result, "text/html; charset=utf-8", "utf-8");
+                        } catch (Exception e) {
+                            Log.e(TAG, "Fail connection", e);
+                            e.printStackTrace();
+                        } finally {
+                            if (null != urlConnection) {
+                                urlConnection.disconnect();
+                            }
+                        }
+                    }
+                }).start();
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "Fail URI", e);
                 e.printStackTrace();
-            } finally {
-                if (null != urlConnection) {
-                    urlConnection.disconnect();
-                }
             }
         }
 
