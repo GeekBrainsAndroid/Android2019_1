@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="loginName">Ваше имя</string>
+    <string name="password">Пароль</string>
+    <string name="ok">Ok</string>
+    <string name="Cancel">Отмена</string>
+    <string name="setting">Настройки</string>
+    <string name="dark_theme">Темная тема</string>
+</resources>
