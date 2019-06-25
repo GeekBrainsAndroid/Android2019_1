@@ -11,6 +11,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def weatherApiKey  = properties.getProperty("weather_api_key", "")
+        it.buildConfigField "String", "WEATHER_API_KEY", weatherApiKey
+    }
+
     buildTypes {
         release {
             minifyEnabled false

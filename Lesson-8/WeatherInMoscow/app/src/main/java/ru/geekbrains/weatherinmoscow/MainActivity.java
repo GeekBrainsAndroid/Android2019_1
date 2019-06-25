@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "WEATHER";
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?lat=55.75&lon=37.62&appid=";
-    private static final String WEATHER_API_KEY = "YOUR_API_KEY";
 
     private EditText city;
     private EditText temperature;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             try {
-                final URL uri = new URL(WEATHER_URL + WEATHER_API_KEY);
+                final URL uri = new URL(WEATHER_URL + BuildConfig.WEATHER_API_KEY);
                 final Handler handler = new Handler(); // Запоминаем основной поток
                 new Thread(new Runnable() {
                     public void run() {
